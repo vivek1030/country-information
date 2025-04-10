@@ -1,7 +1,7 @@
 import axios from 'axios';
 import NodeCache from 'node-cache';
 
-const countryCache = new NodeCache({ stdTTL: 3600 }); // Cache for 1 hour
+const countryCache = new NodeCache({ stdTTL: 3600 });
 const API_URL = 'https://restcountries.com/v3.1';
 
 export interface Country {
@@ -112,7 +112,7 @@ export const searchCountries = async (filters: {
     return countries;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.status === 404) {
-      return []; // Return empty array if no countries found
+      return [];
     }
     throw new Error('Failed to search countries');
   }
