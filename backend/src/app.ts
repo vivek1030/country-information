@@ -1,9 +1,10 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import countryRoutes from './routes/countryRoutes';
+import { config } from './config/config';
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = config.port;
 
 // Middleware
 app.use(cors());

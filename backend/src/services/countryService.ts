@@ -1,8 +1,9 @@
 import axios from 'axios';
 import NodeCache from 'node-cache';
+import { config } from '../config/config';
 
-const countryCache = new NodeCache({ stdTTL: 3600 });
-const API_URL = 'https://restcountries.com/v3.1';
+const countryCache = new NodeCache({ stdTTL: config.cacheTTL });
+const API_URL = config.apiBaseUrl;
 
 export interface Country {
   name: {
@@ -29,11 +30,12 @@ export const getAllCountries = async (): Promise<Country[]> => {
   const cachedData = countryCache.get<Country[]>(cacheKey);
 
   if (cachedData) {
+    console.log("from cache")
     return cachedData;
   }
 
   try {
-    const response = await axios.get(`${API_URL}/all?fields=name,flag,region,flags`);
+    const response = await axios.get(`${API_URL}/all?fields=name,flag,region,flags,cca3,timezones`);
     const countries = response.data.map(processCountryData);
     countryCache.set(cacheKey, countries);
     return countries;
