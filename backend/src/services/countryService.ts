@@ -30,7 +30,7 @@ export const getAllCountries = async (): Promise<Country[]> => {
   const cachedData = countryCache.get<Country[]>(cacheKey);
 
   if (cachedData) {
-    console.log("from cache")
+    console.log('from cache');
     return cachedData;
   }
 

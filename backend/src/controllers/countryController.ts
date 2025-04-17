@@ -27,7 +27,13 @@ export const getCountryByCode = async (req: Request, res: Response, next: NextFu
 export const getCountriesByRegion = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const countries = await countryService.getCountriesByRegion(req.params.region);
-    sendResponse(res, 200, 'success', `Countries in region '${req.params.region}' fetched`, countries);
+    sendResponse(
+      res,
+      200,
+      'success',
+      `Countries in region '${req.params.region}' fetched`,
+      countries,
+    );
   } catch (error) {
     next(error);
   }
